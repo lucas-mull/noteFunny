@@ -1,0 +1,23 @@
+<%= form_for(@matiere) do |f| %>
+  <% if @matiere.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@matiere.errors.count, "error") %> prohibited this matiere from being saved:</h2>
+
+      <ul>
+      <% @matiere.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <p><label for="matiere_title">Titre: </label>
+    <%= text_field 'matiere', 'titre' %></p>
+    <p><label for="matiere_debut">Date de début: </label>
+    <%= date_field 'matiere', 'debut' %></p>
+    <p><label for="matiere_fin">Date de fin: </label>
+    <%= date_field 'matiere', 'fin' %></p>
+    <%= f.submit %>
+  </div>
+<% end %>

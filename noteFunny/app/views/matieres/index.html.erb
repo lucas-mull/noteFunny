@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Matieres</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @matieres.each do |matiere| %>
+      <tr>
+        <td><%= link_to 'Show', matiere %></td>
+        <td><%= link_to 'Edit', edit_matiere_path(matiere) %></td>
+        <td><%= link_to 'Destroy', matiere, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Matiere', new_matiere_path %>
