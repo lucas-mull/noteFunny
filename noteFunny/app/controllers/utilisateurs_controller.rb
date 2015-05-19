@@ -4,6 +4,9 @@ class UtilisateursController < ApplicationController
   # GET /utilisateurs
   # GET /utilisateurs.json
   def index
+    if isConnected?
+      @utilisateur = current_user
+    end
   end
 
   # GET /utilisateurs/1
@@ -15,6 +18,7 @@ class UtilisateursController < ApplicationController
   def new
     @utilisateur = Utilisateur.new
   end
+
 
 
   # GET /utilisateurs/1/edit
