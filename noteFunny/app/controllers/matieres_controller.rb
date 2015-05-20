@@ -4,7 +4,9 @@ class MatieresController < ApplicationController
   # GET /matieres
   # GET /matieres.json
   def index
-    @matieres = Matiere.all
+    if isConnected?
+      @matieres = current_user.matieres
+    end
   end
 
   # GET /matieres/1

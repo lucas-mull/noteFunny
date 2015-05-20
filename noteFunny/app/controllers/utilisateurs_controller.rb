@@ -29,10 +29,11 @@ class UtilisateursController < ApplicationController
   # POST /utilisateurs.json
   def create
     @utilisateur = Utilisateur.new(utilisateur_params)
+    @utilisateur.etat = 'pending'
 
     respond_to do |format|
       if @utilisateur.save
-        format.html { redirect_to @utilisateur, notice: 'Utilisateur was successfully created.' }
+        format.html { redirect_to @utilisateur, notice: 'Votre compte a été créé. Toutefois, un admin doit le valider. Vous recevrez un mail une fois cette opération effectuée' }
         format.json { render :show, status: :created, location: @utilisateur }
       else
         format.html { render :new }
@@ -52,6 +53,32 @@ class UtilisateursController < ApplicationController
         format.html { render :edit }
         format.json { render json: @utilisateur.errors, status: :unprocessable_entity }
       end
+    end
+  end
+
+  def login
+    respond_to do |format|
+      if (user = Utilisateur.find_by(email: params[:email])) != nil
+        if user.password == params[:password]
+          if user.etat != 'pending'
+            session[:current_user_id] = user.id
+            format.html{ redirect_to "/", notice: 'Vous êtes connecté.' }
+          else
+            format.html{ redirect_to "/", notice: 'Votre compte n\'a pas encore été activé' }
+          end
+        else
+          format.html{ redirect_to "/", notice: 'Mauvais mot de passe' }
+        end
+      else
+        format.html{ redirect_to "/", notice: 'Utilisateur inconnu' }
+      end
+    end
+  end
+
+  def logout
+    session.delete(:current_user_id)
+    respond_to do |format|
+      format.html{ redirect_to "/", notice: 'Vous vous êtes déconnectés' }
     end
   end
 

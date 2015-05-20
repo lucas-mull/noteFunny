@@ -8,11 +8,21 @@
 	<meta name="description" content="">
 	<meta name="author" content="">
 
-  <title>NoteFunny</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <link rel='stylesheet' type='text/css' href='app/assets/stylesheets/bootstrap.css'>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
+	<!-- Bootstrap Core CSS -->
+	<!--stylesheet_link_tag    'bootstrap.min', media: 'all', 'data-turbolinks-track' => true -->
+
+    <!-- Custom CSS -->
+    <%= stylesheet_link_tag    'business-casual', media: 'all' %>
+
+    <!-- Fonts -->
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Josefin+Slab:100,300,400,600,700,100italic,300italic,400italic,600italic,700italic" rel="stylesheet" type="text/css">
+
+	<title>NoteFunny</title>
+	<%= stylesheet_link_tag    'bootstrap', media: 'all' %>
+	<!-- <link rel='stylesheet' type='text/css' href='app/assets/stylesheets/bootstrap.css'> -->
+	<%= javascript_include_tag 'application' %>
+	<%= csrf_meta_tags %>
 </head>
 <body>
     <!-- Navigation -->
@@ -32,10 +42,14 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li><a>Accueil</a></li>
-                    <li><a>Matières</a></li>
-                    <li><a>Epreuves</a></li>
-                    <li><a>Mon compte</a></li>
+                	<% if session[:current_user_id] %>
+	                    <li><a href='/'>Accueil</a></li>
+	                    <li><a href='/matieres'>Matières</a></li>
+	                    <li><a>Epreuves</a></li>
+	                    <li><a href='/deconnexion'>Mon compte</a></li>
+	                <% else %>
+	                	<li><a href='/'>Accueil</a></li>
+                	<% end %>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -48,27 +62,6 @@
         <div class="row">
             <div class="box">
                 <div class="col-lg-12 text-center">
-                    <div id="carousel-example-generic" class="carousel slide">
-                        <!-- Indicators -->
-                        <ol class="carousel-indicators hidden-xs">
-                            <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-                            <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-                            <li data-target="#carousel-example-generic" data-slide-to="2"></li>
-                        </ol>
-
-                        <!-- Wrapper for slides -->
-                        <div class="carousel-inner">
-                            <div class="item active">
-                                <img class="img-responsive img-full" src="app/assets/images/slide-1.jpg" alt="">
-                            </div>
-                            <div class="item">
-                                <img class="img-responsive img-full" src="app/assets/images/slide-2.jpg" alt="">
-                            </div>
-                            <div class="item">
-                                <img class="img-responsive img-full" src="app/assets/images/slide-3.jpg" alt="">
-                            </div>
-                        </div>
-                    </div>
                     <h2 class="brand-before">
                         <small>Bienvenue sur</small>
                     </h2>
@@ -83,25 +76,28 @@
             </div>
         </div>
 
-        <div class="row">
+        
+       
+    <!-- /.container -->
+    <!-- jQuery -->
+    <!--<script src="app/assets/javascripts/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript
+    <script src="app/assets/javascripts/bootstrap.min.js"></script> -->
+
+    <div class="row">
             <div class="box">
                 <div class="col-lg-12">
                     <hr>
-                    <img class="img-responsive img-border img-left" src="app/assets/images/intro-pic.jpg" alt="">
+
+<%= yield %>
+	             <!-- <img class="img-responsive img-border img-left" src="app/assets/images/intro-pic.jpg" alt=""> -->
                     <hr class="visible-xs">
                 </div>
             </div>
         </div>
 
     </div>
-    <!-- /.container -->
-    <!-- jQuery -->
-    <script src="app/assets/javascripts/jquery.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="app/assets/javascripts/bootstrap.min.js"></script>
-
-<%= yield %>
 
 <footer>
         <div class="container">
