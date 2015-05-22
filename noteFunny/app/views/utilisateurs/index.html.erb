@@ -13,9 +13,9 @@
     <tbody>
       <%= form_tag('/connexion') do %>
         <div class="actions">
-          <p><label for="utilisateur_email">Adresse email: </label>
+          <p><label class="submit1" for="utilisateur_email">Adresse email: </label>
           <%= email_field_tag(:email) %></p>
-          <p><label for="utilisateur_password">Mot de passe: </label>
+          <p><label class="submit2" for="utilisateur_password">Mot de passe: </label>
           <%= password_field_tag(:password) %></p>
           <%= submit_tag 'Connexion' %>
           <%= link_to 'S\'inscrire', new_utilisateur_path %>

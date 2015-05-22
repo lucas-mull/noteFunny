@@ -366,10 +366,38 @@ fieldset {
   border: 1px solid #c0c0c0;
 }
 .actions {
-    margin-left: auto;
+    margin-left: 5px;
     margin-right: auto;
     text-align: center;
+    position: relative;
+    top: 0px;
+    
+
 }
+
+label.submit1 {
+  color: blue;
+  text-align: left;
+  margin-left: 5%;
+}
+label.submit2 {
+  color: yellow;
+  text-align: left;
+  margin-left: 2%;
+}
+input#password {
+  margin: 0 2.20%;
+}
+input#email {
+  padding-right: 04%;
+  margin: 0 2%;
+}
+/*.submit {
+    vertical-align: middle;
+    display: block;
+    margin: 4px auto 0;  centrer le submit pour navigateur autre que ie8 
+    text-align: center;
+}*/
 legend {
   padding: 0;
   border: 0;
