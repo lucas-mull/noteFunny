@@ -19,6 +19,7 @@ class MatieresController < ApplicationController
   # GET /matieres/1
   # GET /matieres/1.json
   def show
+    session[:current_matiere_id] = @matiere.id
   end
 
   # GET /matieres/new
@@ -28,10 +29,6 @@ class MatieresController < ApplicationController
 
   # GET /matieres/1/edit
   def edit
-  end
-
-  def add_student
-    
   end
 
   # POST /matieres

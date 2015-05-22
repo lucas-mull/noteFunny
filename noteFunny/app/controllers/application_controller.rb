@@ -5,6 +5,10 @@ class ApplicationController < ActionController::Base
   	@_current_user ||= session[:current_user_id] && Utilisateur.find(session[:current_user_id])
   end
 
+  def current_matiere
+  	@_current_matiere ||= session[:current_matiere_id] && Matiere.find(session[:current_matiere_id])
+  end
+
   def isConnected?
   	session[:current_user_id].present?
   end

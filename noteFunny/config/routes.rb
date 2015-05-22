@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   resources :epreuves
   post 'connexion' => 'utilisateurs#login'
   get 'deconnexion' => 'utilisateurs#logout'
+  get 'sendConfirmEmail' => 'appartenances#create'
+  get 'confirm/:id' => 'utilisateurs#confirm'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
