@@ -12,6 +12,7 @@
   <% end %>
 
   <div class="actions">
+  <% if @utilisateur.type == 'Enseignant' %>   
     <p><label for="utilisateur_nom">Nom: </label>
     <%= text_field 'utilisateur', 'nom' %></p>
     <p><label for="utilisateur_prenom">Prenom: </label>
@@ -20,6 +21,17 @@
     <%= email_field 'utilisateur', 'email' %></p>
     <p><label for="utilisateur_password">Mot de passe: </label>
     <%= password_field 'utilisateur', 'password' %></p>
-    <%= f.submit %>
+    <p><%= hidden_field 'utilisateur', 'type' %></p>
+  <% else %>
+    <p><label for="utilisateur_nom">Nom: </label>
+    <%= text_field 'utilisateur', 'nom' %></p>
+    <p><label for="utilisateur_prenom">Prenom: </label>
+    <%= text_field 'utilisateur', 'prenom' %></p>
+    <p><label for="utilisateur_email">Adresse email: </label>
+    <%= email_field 'utilisateur', 'email' %></p>
+    <p><%= hidden_field 'utilisateur', 'password' %></p>
+  <% end %>
+  <%= f.submit 'Valider' %>
   </div>
+
 <% end %>

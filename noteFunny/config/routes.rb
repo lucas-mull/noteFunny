@@ -2,9 +2,8 @@ Rails.application.routes.draw do
 
   root 'utilisateurs#index'
   resources :utilisateurs
-
-  get 'matieres' => 'matieres#index'
-  get 'matieres/new' => 'matieres#new'
+  resources :matieres
+  resources :epreuves
   post 'connexion' => 'utilisateurs#login'
   get 'deconnexion' => 'utilisateurs#logout'
   # The priority is based upon order of creation: first created -> highest priority.

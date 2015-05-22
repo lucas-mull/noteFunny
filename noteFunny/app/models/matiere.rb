@@ -1,5 +1,5 @@
 class Matiere < ActiveRecord::Base
-	belongs_to :utilisateurs
+	belongs_to :enseignants
 	has_many :epreuves
-	has_many :utilisateurs
+	has_many :appartenances
 end

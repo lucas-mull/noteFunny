@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Listing Matieres</h1>
+<h1>Listes des matières</h1>
 
 <table>
   <thead>
@@ -12,14 +12,22 @@
   <tbody>
     <% @matieres.each do |matiere| %>
       <tr>
-        <td><%= link_to 'Show', matiere %></td>
-        <td><%= link_to 'Edit', edit_matiere_path(matiere) %></td>
-        <td><%= link_to 'Destroy', matiere, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><h2><%= matiere.titre %></h2></td>
       </tr>
+      <% if @user.type != 'Etudiant' %>
+        <tr>
+          <td><%= link_to 'Voir', matiere %> | </td>
+          <td><%= link_to 'Supprimer', matiere, method: :delete, data: { confirm: 'Etes vous sûr ?' } %></td>
+        </tr>
+      <% else %>
+        <tr>
+          <td><%= link_to 'Voir', matiere %> | </td>
+        </tr>
+      <% end %>
     <% end %>
   </tbody>
 </table>
 
 <br>
 
-<%= link_to 'New Matiere', '/matieres/new' %>
+<%= link_to 'Nouvelle matière', new_matiere_path %>

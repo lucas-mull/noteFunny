@@ -1,5 +1,5 @@
+<p id="notice"><%= notice %></p>
 <% if !@utilisateur %>
-  <p id="notice"><%= notice %></p>
 
   <h1>Connexion</h1>
 
@@ -18,7 +18,7 @@
           <p><label class="submit2" for="utilisateur_password">Mot de passe: </label>
           <%= password_field_tag(:password) %></p>
           <%= submit_tag 'Connexion' %>
-          <%= link_to 'S\'inscrire', new_utilisateur_path %>
+          <%= link_to 'S\'inscrire', new_utilisateur_path(:type => 'Enseignant') %>
         </div>
       <% end %>
     </tbody>
