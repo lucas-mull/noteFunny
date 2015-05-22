@@ -1,4 +1,7 @@
 <p id="notice"><%= notice %></p>
+<p> <%= @matiere.titre %> </p>
+<p><%= @matiere.description %></p>
 
-<%= link_to 'Edit', edit_matiere_path(@matiere) %> |
-<%= link_to 'Back', matieres_path %>
+<%= link_to 'Inviter un étudiant', new_utilisateur_path(:type => 'Etudiant') %> |
+<%= link_to 'Modifier', edit_matiere_path(@matiere) %> |
+<%= link_to 'Retour', matieres_path %>

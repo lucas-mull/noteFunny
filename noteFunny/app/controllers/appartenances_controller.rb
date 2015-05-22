@@ -1,0 +1,3 @@
+class AppartenancesController < ApplicationController
+	
+end

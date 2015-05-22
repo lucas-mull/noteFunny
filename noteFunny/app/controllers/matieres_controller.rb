@@ -5,7 +5,14 @@ class MatieresController < ApplicationController
   # GET /matieres.json
   def index
     if isConnected?
-      @matieres = current_user.matieres
+      @user = current_user
+      if @user.type == 'Admin'
+        @matieres = Matiere.all
+      else
+        @matieres = current_user.matieres
+      end
+    else
+      redirect_to root_path
     end
   end
 
@@ -23,14 +30,18 @@ class MatieresController < ApplicationController
   def edit
   end
 
+  def add_student
+    
+  end
+
   # POST /matieres
   # POST /matieres.json
   def create
     @matiere = Matiere.new(matiere_params)
-
+    @matiere.enseignant_id = current_user.id
     respond_to do |format|
       if @matiere.save
-        format.html { redirect_to @matiere, notice: 'Matiere was successfully created.' }
+        format.html { redirect_to matieres_path, notice: 'Matiere was successfully created.' }
         format.json { render :show, status: :created, location: @matiere }
       else
         format.html { render :new }
@@ -44,7 +55,7 @@ class MatieresController < ApplicationController
   def update
     respond_to do |format|
       if @matiere.update(matiere_params)
-        format.html { redirect_to @matiere, notice: 'Matiere was successfully updated.' }
+        format.html { redirect_to @matiere, notice: 'La matière a été mise à jour.' }
         format.json { render :show, status: :ok, location: @matiere }
       else
         format.html { render :edit }
@@ -71,6 +82,7 @@ class MatieresController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def matiere_params
-      params[:matiere]
+      allow = [:titre, :debut, :fin, :description, :enseignant_id]
+      params.require(:matiere).permit(allow)
     end
 end

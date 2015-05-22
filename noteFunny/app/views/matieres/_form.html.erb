@@ -18,6 +18,8 @@
     <%= date_field 'matiere', 'debut' %></p>
     <p><label for="matiere_fin">Date de fin: </label>
     <%= date_field 'matiere', 'fin' %></p>
+    <p><label for="matiere_description">Description: </label>
+    <%= text_area 'matiere', 'description' %></p>
     <%= hidden_field_tag :enseignant_id, session[:current_user_id] %>
     <%= f.submit %>
   </div>

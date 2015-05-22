@@ -1,3 +1,5 @@
+require 'securerandom'
+
 class UtilisateursController < ApplicationController
   before_action :set_utilisateur, only: [:show, :edit, :update, :destroy]
 
@@ -17,6 +19,10 @@ class UtilisateursController < ApplicationController
   # GET /utilisateurs/new
   def new
     @utilisateur = Utilisateur.new
+    if (params[:type] == 'Etudiant')
+      @utilisateur.password = SecureRandom.hex  
+    end
+    @utilisateur.type = params[:type]  
   end
 
 
@@ -28,16 +34,28 @@ class UtilisateursController < ApplicationController
   # POST /utilisateurs
   # POST /utilisateurs.json
   def create
-    @utilisateur = Utilisateur.new(utilisateur_params)
-    @utilisateur.etat = 'pending'
+    if params[:utilisateur][:type]
+      @utilisateur = Enseignant.new(utilisateur_params)
+      @utilisateur.etat = 'pending'
 
-    respond_to do |format|
-      if @utilisateur.save
-        format.html { redirect_to @utilisateur, notice: 'Votre compte a été créé. Toutefois, un admin doit le valider. Vous recevrez un mail une fois cette opération effectuée' }
-        format.json { render :show, status: :created, location: @utilisateur }
-      else
-        format.html { render :new }
-        format.json { render json: @utilisateur.errors, status: :unprocessable_entity }
+      respond_to do |format|
+        if @utilisateur.save
+          format.html { redirect_to root_path, notice: 'Votre compte a été créé. Toutefois, un admin doit le valider. Vous recevrez un mail une fois cette opération effectuée' }
+          format.json { render :show, status: :created, location: @utilisateur }
+        else
+          format.html { render :new }
+          format.json { render json: @utilisateur.errors, status: :unprocessable_entity }
+        end
+      end
+    else
+      @utilisateur = Etudiant.new(utilisateur_params)
+      @utilisateur.etat = 'pending'
+
+      respond_to do |format|
+        if @utilisateur.save
+          format.html { redirect_to matieres_path, notice: 'Invitation envoyée' }
+          format.json { render :show, status: :created, location: matieres_path }
+        end
       end
     end
   end
@@ -100,7 +118,7 @@ class UtilisateursController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def utilisateur_params
-      allow = [:nom, :prenom, :email, :password]
+      allow = [:nom, :prenom, :email, :password, :type]
       params.require(:utilisateur).permit(allow)
     end
 end
