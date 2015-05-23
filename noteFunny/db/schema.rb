@@ -50,7 +50,7 @@ ActiveRecord::Schema.define(version: 20150522082550) do
     t.string "nom",      limit: 20,  null: false
     t.string "prenom",   limit: 20,  null: false
     t.string "email",    limit: 100, null: false
-    t.string "password", limit: 50,  null: false
+    t.string "password", limit: 20,  null: false
     t.string "etat"
     t.string "type"
   end
