@@ -71,7 +71,9 @@ class MatieresController < ApplicationController
   # DELETE /matieres/1
   # DELETE /matieres/1.json
   def destroy
-    Appartenance.deleteAllFromMatiere(@matiere.id)
+    @matiere.appartenances.each do |a|
+      a.destroy
+    end
     @matiere.destroy
     respond_to do |format|
       format.html { redirect_to matieres_url, notice: 'Matiere was successfully destroyed.' }

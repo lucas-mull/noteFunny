@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Epreuves</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @epreuves.each do |epreuve| %>
+      <tr>
+        <td><%= link_to 'Show', epreuve %></td>
+        <td><%= link_to 'Edit', edit_epreuve_path(epreuve) %></td>
+        <td><%= link_to 'Destroy', epreuve, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New epreuve', new_epreuve_path %>
