@@ -1,5 +1,5 @@
 <p id="notice"><%= notice %></p>
-<<<<<<< HEAD
+
 <table class="tab">
 	<tr>
 		<td><FONT size="20pt"><strong><%= @matiere.titre %></strong></FONT></td>
@@ -8,11 +8,12 @@
 		<td><%= @matiere.description %></td>
 	</tr>
 </table>
+
 <%= link_to 'Inviter un étudiant', new_utilisateur_path(:type => 'Etudiant') %> |
-=======
-<p><%= @matiere.titre %></p>
-<p><%= @matiere.description %></p>
-<%= link_to 'Ajouter un étudiant', add_etu_path %> |
->>>>>>> 9fddfe3aca58e78f61a2863c74e876d82efbecb6
-<%= link_to 'Modifier', edit_matiere_path(@matiere) %> |
+
+<!-- <p><%= @matiere.titre %></p>
+<p><%= @matiere.description %></p> -->
+<%= link_to 'Ajouter un étudiant', add_etu_path %>  |
+
+<%= link_to 'Modifier', edit_matiere_path(@matiere) %>  |
 <%= link_to 'Retour', matieres_path %>

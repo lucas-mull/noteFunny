@@ -72,6 +72,7 @@ class UtilisateursController < ApplicationController
   end
 
   def login
+    
     respond_to do |format|
       if (user = Utilisateur.find_by(email: params[:email])) != nil
         if user.password == params[:password]
