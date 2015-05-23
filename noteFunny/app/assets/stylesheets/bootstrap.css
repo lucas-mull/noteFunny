@@ -375,6 +375,10 @@ fieldset {
 
 }
 
+table {
+  width: 100%;
+}
+
 label.submit1 {
   color: blue;
   text-align: left;
@@ -392,12 +396,33 @@ input#email {
   padding-right: 04%;
   margin: 0 2%;
 }
-/*.submit {
-    vertical-align: middle;
-    display: block;
-    margin: 4px auto 0;  centrer le submit pour navigateur autre que ie8 
+
+
+.header {
+    height: 5%;
     text-align: center;
-}*/
+    padding: 0.5rem;
+    border-bottom: 1px solid;
+}
+.tab {
+    height: 5%;
+    text-align: center;
+    padding: 0.5rem;
+    
+    font-size: 15pt;
+
+}
+
+.lien {
+    padding: 0.5rem;
+    height: 5%;
+    text-align: left;
+}
+
+.majuscule {
+  text-transform: uppercase;
+}
+
 legend {
   padding: 0;
   border: 0;

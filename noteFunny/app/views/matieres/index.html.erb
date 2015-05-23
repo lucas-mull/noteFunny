@@ -10,12 +10,24 @@
   </thead>
 
   <tbody>
-    <% @matieres.each do |matiere| %>
-      <tr>
-        <td><h2><%= matiere.titre %></h2></td>
+    
+      <tr class="header">
+        <td>Titre</td>
+        <td>Description</td>
+        <td>Début</td>
+        <td>Fin</td>
       </tr>
+    <% @matieres.each do |matiere| %>
+      
+      <tr class="tab">
+        <td class="majuscule"><FONT size="5pt"><strong><%= matiere.titre %></strong></FONT></td>
+        <td><%= matiere.description%></td>
+        <td><%= matiere.debut %></td>
+        <td><%= matiere.fin%></td>
+      </tr>
+    
       <% if @user.type != 'Etudiant' %>
-        <tr>
+        <tr class="lien">
           <td><%= link_to 'Voir', matiere %> | </td>
           <td><%= link_to 'Supprimer', matiere, method: :delete, data: { confirm: 'Etes vous sûr ?' } %></td>
         </tr>
