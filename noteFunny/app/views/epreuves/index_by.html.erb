@@ -11,14 +11,12 @@
 
   <tbody>
       <tr>
-        <th>Matière</th>
-        <th>Titre</th>
-        <th>Date</th>
+        <td>Matière</td>
+        <td>Titre</td>
+        <td>Date</td>
       </tr>
     <% if @epreuves.count == 0 %>
-      <tr>
-        <td>Aucune épreuve</td>
-      </tr>
+      <tr>Aucune épreuve pour cette matière</tr>
     <% else %>
       <% @epreuves.each do |epreuve| %>
         <tr>
@@ -36,4 +34,4 @@
 
 <br>
 
-<%= link_to 'Créer une épreuve', new_epreuve_path %>
+<%= link_to 'New epreuve', new_epreuve_path %>

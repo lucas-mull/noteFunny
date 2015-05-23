@@ -1,5 +1,5 @@
 class EpreuvesController < ApplicationController
-  before_action :set_Epreuve, only: [:show, :edit, :update, :destroy]
+  before_action :set_epreuve, only: [:show, :edit, :update, :destroy]
 
   # GET /epreuves
   # GET /epreuves.json
@@ -22,6 +22,14 @@ class EpreuvesController < ApplicationController
     end
   end
 
+  def index_by
+    if isConnected?
+      @epreuves = Matiere.find(params[:matieres_id]).epreuves
+    else
+      redirect_to root_path
+    end
+  end
+
   # GET /epreuves/1
   # GET /epreuves/1.json
   def show
@@ -29,7 +37,9 @@ class EpreuvesController < ApplicationController
 
   # GET /epreuves/new
   def new
-    @Epreuve = Epreuve.new
+    @epreuve = Epreuve.new
+    @matiere = current_matiere
+    @epreuve.matieres_id = @matiere.id
   end
 
   # GET /epreuves/1/edit
@@ -39,15 +49,15 @@ class EpreuvesController < ApplicationController
   # POST /epreuves
   # POST /epreuves.json
   def create
-    @Epreuve = Epreuve.new(Epreuve_params)
+    @epreuve = Epreuve.new(epreuve_params)
 
     respond_to do |format|
-      if @Epreuve.save
-        format.html { redirect_to @Epreuve, notice: 'Epreuve was successfully created.' }
-        format.json { render :show, status: :created, location: @Epreuve }
+      if @epreuve.save
+        format.html { redirect_to @epreuve, notice: 'epreuve was successfully created.' }
+        format.json { render :show, status: :created, location: @epreuve }
       else
         format.html { render :new }
-        format.json { render json: @Epreuve.errors, status: :unprocessable_entity }
+        format.json { render json: @epreuve.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -56,12 +66,12 @@ class EpreuvesController < ApplicationController
   # PATCH/PUT /epreuves/1.json
   def update
     respond_to do |format|
-      if @Epreuve.update(Epreuve_params)
-        format.html { redirect_to @Epreuve, notice: 'Epreuve was successfully updated.' }
-        format.json { render :show, status: :ok, location: @Epreuve }
+      if @epreuve.update(epreuve_params)
+        format.html { redirect_to @epreuve, notice: 'epreuve was successfully updated.' }
+        format.json { render :show, status: :ok, location: @epreuve }
       else
         format.html { render :edit }
-        format.json { render json: @Epreuve.errors, status: :unprocessable_entity }
+        format.json { render json: @epreuve.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -69,21 +79,22 @@ class EpreuvesController < ApplicationController
   # DELETE /epreuves/1
   # DELETE /epreuves/1.json
   def destroy
-    @Epreuve.destroy
+    @epreuve.destroy
     respond_to do |format|
-      format.html { redirect_to epreuves_url, notice: 'Epreuve was successfully destroyed.' }
+      format.html { redirect_to epreuves_url, notice: 'epreuve was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_Epreuve
-      @Epreuve = Epreuve.find(params[:id])
+    def set_epreuve
+      @epreuve = Epreuve.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
-    def Epreuve_params
-      params[:Epreuve]
+    def epreuve_params
+      allow = [:titre, :date, :matieres_id]
+      params.require(:epreuve).permit(allow)
     end
 end

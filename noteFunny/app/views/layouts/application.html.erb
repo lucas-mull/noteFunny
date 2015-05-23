@@ -45,8 +45,8 @@
                 	<% if session[:current_user_id] %>
 	                    <li><a href='/'>Accueil</a></li>
 	                    <li><a href='/matieres'>Matières</a></li>
-	                    <li><a href='/epreuves'>épreuves</a></li>
-	                    <li>Connecté en tant que <%= @utilisateur.fullname %><a href='/deconnexion'>(déconnexion)</a></li>
+	                    <li><a href='/epreuves'>Résultats</a></li>
+	                    <li>Connecté en tant que <%= current_user.fullname %><a href='/deconnexion'>(déconnexion)</a></li>
 	                <% else %>
 	                	<li><a href='/'>Accueil</a></li>
                 	<% end %>
