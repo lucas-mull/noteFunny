@@ -20,7 +20,12 @@
     <%= date_field 'matiere', 'fin' %></p>
     <p><label for="matiere_description">Description: </label>
     <%= text_area 'matiere', 'description' %></p>
-    <%= hidden_field_tag :enseignant_id, session[:current_user_id] %>
+    <% if @utilisateur.type == 'Admin' %>
+      <p><label for="matiere_enseignant_id">Enseignant responsable: </label>
+      <%= collection_select(:matiere, :enseignant_id, Enseignant.all, :id, :fullname) %></p>
+    <% else %>
+      <%= hidden_field 'matiere', 'enseignant_id' %>
+    <% end %>
     <%= f.submit %>
   </div>
 <% end %>

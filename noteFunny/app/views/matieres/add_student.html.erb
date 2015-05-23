@@ -1,0 +1,7 @@
+<p>Choisissez un étudiant parmi la liste</p>
+<%= form_tag(submit_etu_path) do %>
+<%= select_tag :etudiants_id, options_from_collection_for_select(@etudiants, :id, :fullname, "1") %>
+<%= submit_tag 'Valider' %>
+<% end %>
+<p>OU</p>
+<%= link_to 'Inviter un nouvel étudiant', new_utilisateur_path(:type => 'Etudiant') %>

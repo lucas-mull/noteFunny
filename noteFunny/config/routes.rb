@@ -6,8 +6,13 @@ Rails.application.routes.draw do
   resources :epreuves
   post 'connexion' => 'utilisateurs#login'
   get 'deconnexion' => 'utilisateurs#logout'
-  get 'sendConfirmEmail' => 'appartenances#create'
+  get 'sendConfirmEmail' => 'appartenances#invite'
+  get 'appartenances/create' => 'appartenances#create'
   get 'confirm/:id' => 'utilisateurs#confirm'
+  get 'enseignants' => 'utilisateur#index'
+  get 'etudiants' => 'utilisateurs#index'
+  get 'add_etu' => 'matieres#add_student'
+  post 'submit_etu' => 'matieres#submit_student'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

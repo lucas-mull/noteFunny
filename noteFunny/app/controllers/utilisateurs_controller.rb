@@ -36,26 +36,23 @@ class UtilisateursController < ApplicationController
   def create
     if params[:utilisateur][:type]
       @utilisateur = Enseignant.new(utilisateur_params)
-      @utilisateur.etat = 'pending'
+    else
+      @utilisateur = Etudiant.new(utilisateur_params)
+    end
+    @utilisateur.etat = 'pending'
 
-      respond_to do |format|
-        if @utilisateur.save
+    respond_to do |format|
+      if @utilisateur.save
+        if @utilisateur.type = 'Enseignant'
           format.html { redirect_to root_path, notice: 'Votre compte a été créé. Toutefois, un admin doit le valider. Vous recevrez un mail une fois cette opération effectuée' }
           format.json { render :show, status: :created, location: root_path }
         else
-          format.html { render :new }
-          format.json { render json: @utilisateur.errors, status: :unprocessable_entity }
-        end
-      end
-    else
-      @utilisateur = Etudiant.new(utilisateur_params)
-      @utilisateur.etat = 'pending'
-
-      respond_to do |format|
-        if @utilisateur.save
           format.html { redirect_to sendConfirmEmail_path(:matieres_id => current_matiere.id, :etudiants_id => @utilisateur.id) }
           format.json { render :show, status: :created, location: matieres_path }
         end
+      else
+        format.html { render :new }
+        format.json { render json: @utilisateur.errors, status: :unprocessable_entity }
       end
     end
   end

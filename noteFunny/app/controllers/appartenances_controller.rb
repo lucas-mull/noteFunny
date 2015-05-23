@@ -1,5 +1,5 @@
 class AppartenancesController < ApplicationController
-	def create
+	def invite
 		@appartenance = Appartenance.new(appartenances_params)
 		@user = Utilisateur.find(params[:etudiants_id])
 		UserMailer.welcome_email(@user).deliver_now
@@ -10,6 +10,16 @@ class AppartenancesController < ApplicationController
 	      	end
       	end
 	end
+
+	def create
+		@appartenance = Appartenance.new(appartenances_params)
+		respond_to do |format|
+			if @appartenance.save
+				format.html { redirect_to matiere_path(:id => current_matiere.id), notice: 'Etudiant ajouté' }
+	      		format.json { render :show, status: :created, location: matiere_path(:id => current_matiere.id) }
+	      	end
+      	end
+  	end
 
 	private
 
