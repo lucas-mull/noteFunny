@@ -375,6 +375,7 @@ fieldset {
 
 }
 
+
 table {
   width: 100%;
 }
@@ -423,29 +424,13 @@ input#email {
   text-transform: uppercase;
 }
 
-/*#hideMe {
-    
-    -webkit-animation: cssAnimation 0s ease-in 5s forwards;
-    
-    
-    animation: cssAnimation 0s ease-in 5s forwards;
-    -webkit-animation-fill-mode: forwards;
-    animation-fill-mode: forwards;
+p {
+    opacity:1;
+    transition:opacity 500ms;
 }
-@keyframes cssAnimation {
-    to {
-        width:0;
-        height:0;
-        overflow:hidden;
-    }
+p.hideToi {
+    opacity:0;
 }
-@-webkit-keyframes cssAnimation {
-    to {
-        width:0;
-        height:0;
-        visibility:hidden;
-    }
-}*/
 
 legend {
   padding: 0;
