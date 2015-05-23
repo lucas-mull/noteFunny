@@ -11,9 +11,9 @@
 
   <tbody>
       <tr>
-        <td>Matière</td>
-        <td>Titre</td>
-        <td>Date</td>
+        <th>Matière</th>
+        <th>Titre</th>
+        <th>Date</th>
       </tr>
     <% if @epreuves.count == 0 %>
       <tr>Aucune épreuve pour cette matière</tr>
@@ -25,13 +25,15 @@
           <td><%= epreuve.date %></td>
           <td><%= link_to 'Show', epreuve %></td>
           <td><%= link_to 'Edit', edit_epreuve_path(epreuve) %></td>
-          <td><%= link_to 'Destroy', epreuve, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <td><%= link_to 'Destroy', epreuve, method: :delete, data: { confirm: 'Are you sure?' } %></td>         
         </tr>
       <% end %>
+      <tr>
+        <td><%= link_to 'Créer une nouvelle épreuve', new_epreuve_path %></td>
+      </tr>
     <% end %>
   </tbody>
 </table>
-
 <br>
 
-<%= link_to 'New epreuve', new_epreuve_path %>
+

@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   get 'etudiants' => 'utilisateurs#index'
   get 'add_etu' => 'matieres#add_student'
   post 'submit_etu' => 'matieres#submit_student'
-  get 'epreuves' => 'epreuves#index_by', :as => 'epreuves_by_matiere'
+  get 'matieres/:matiere_id/epreuves' => 'epreuves#index_by', :as => 'epreuves_by_matiere'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

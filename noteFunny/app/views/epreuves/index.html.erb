@@ -20,20 +20,25 @@
         <td>Aucune épreuve</td>
       </tr>
     <% else %>
-      <% @epreuves.each do |epreuve| %>
-        <tr>
-          <td><%= epreuve.matiere.titre %></td>
-          <td><%= epreuve.titre %></td>
-          <td><%= epreuve.date %></td>
-          <td><%= link_to 'Show', epreuve %></td>
-          <td><%= link_to 'Edit', edit_epreuve_path(epreuve) %></td>
-          <td><%= link_to 'Destroy', epreuve, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        </tr>
+      <% @matieres.each do |mat| %>
+        <% if mat.epreuves.count !=0 %>
+          <% mat.epreuves.each do |epreuve| %>
+            <tr>
+              <td><%= epreuve.matiere.titre %></td>
+              <td><%= epreuve.titre %></td>
+              <td><%= epreuve.date %></td>
+              <td><%= link_to 'Show', epreuve %></td>
+              <td><%= link_to 'Edit', edit_epreuve_path(epreuve) %></td>            
+              <td><%= link_to 'Destroy', epreuve, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            </tr>
+          <% end %>
+          <tr>
+            <td><%= link_to 'Créer une nouvelle épreuve', new_epreuve_path %></td>
+          </tr>
+        <% end %>
       <% end %>
     <% end %>
   </tbody>
 </table>
 
 <br>
-
-<%= link_to 'Créer une épreuve', new_epreuve_path %>

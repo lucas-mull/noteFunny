@@ -6,14 +6,18 @@ class EpreuvesController < ApplicationController
   def index
     if isConnected?
       @utilisateur = current_user
+      # session.delete([:current_matiere_id])
       if @utilisateur.type == 'Admin'
         @epreuves = Epreuve.all
+        @matieres = Matiere.all
       elsif @utilisateur.type != 'Etudiant'
-        @utilisateur.matieres.each do |m|
+        @matieres = @utilisateur.matieres
+        @matieres.each do |m|
           @epreuves << m.epreuves
         end
       else
-        @utilisateur.appartenances.matieres.each do |m|
+        @matieres = @utilisateur.appartenances.matieres
+        @matieres.each do |m|
           @epreuves << m.epreuves
         end
       end
@@ -24,7 +28,7 @@ class EpreuvesController < ApplicationController
 
   def index_by
     if isConnected?
-      @epreuves = Matiere.find(params[:matieres_id]).epreuves
+      @epreuves = Matiere.find(params[:matiere_id]).epreuves
     else
       redirect_to root_path
     end
@@ -39,7 +43,7 @@ class EpreuvesController < ApplicationController
   def new
     @epreuve = Epreuve.new
     @matiere = current_matiere
-    @epreuve.matieres_id = @matiere.id
+    @epreuve.matiere_id = @matiere.id
   end
 
   # GET /epreuves/1/edit
@@ -94,7 +98,7 @@ class EpreuvesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def epreuve_params
-      allow = [:titre, :date, :matieres_id]
+      allow = [:titre, :date, :matiere_id]
       params.require(:epreuve).permit(allow)
     end
 end

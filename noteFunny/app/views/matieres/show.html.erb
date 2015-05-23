@@ -8,6 +8,6 @@
 	</tr>
 </table>
 <%= link_to 'Ajouter un étudiant', add_etu_path %>  |
-<%= link_to 'Voir les épreuves pour cette matière', epreuves_by_matiere_path(:matieres_id => @matiere.id) %> | 
+<%= link_to 'Voir les épreuves pour cette matière', epreuves_by_matiere_path(:matiere_id => @matiere.id) %> | 
 <%= link_to 'Modifier', edit_matiere_path(@matiere) %>  |
 <%= link_to 'Retour', matieres_path %>
