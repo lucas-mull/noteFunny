@@ -8,8 +8,10 @@ class MatieresController < ApplicationController
       @user = current_user
       if @user.type == 'Admin'
         @matieres = Matiere.all
+      elsif @user.type == 'Enseignant'
+        @matieres = @user.matieres
       else
-        @matieres = current_user.matieres
+        @matieres = Appartenance.getMatieresFromEtu(@user.id)
       end
     else
       redirect_to root_path
@@ -19,26 +21,28 @@ class MatieresController < ApplicationController
   # GET /matieres/1
   # GET /matieres/1.json
   def show
+    @utilisateur = current_user
+    session[:current_matiere_id] = @matiere.id
   end
 
   # GET /matieres/new
   def new
     @matiere = Matiere.new
+    @utilisateur = current_user
+    if @utilisateur.type != 'Admin'
+      @matiere.enseignant_id = @utilisateur.id
+    end
   end
 
   # GET /matieres/1/edit
   def edit
   end
 
-  def add_student
-    
-  end
-
   # POST /matieres
   # POST /matieres.json
   def create
     @matiere = Matiere.new(matiere_params)
-    @matiere.enseignant_id = current_user.id
+    # @matiere.enseignant_id = current_user.id
     respond_to do |format|
       if @matiere.save
         format.html { redirect_to matieres_path, notice: 'Matiere was successfully created.' }
@@ -67,11 +71,20 @@ class MatieresController < ApplicationController
   # DELETE /matieres/1
   # DELETE /matieres/1.json
   def destroy
+    Appartenance.deleteAllFromMatiere(@matiere.id)
     @matiere.destroy
     respond_to do |format|
       format.html { redirect_to matieres_url, notice: 'Matiere was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def add_student
+    @etudiants = Etudiant.all
+  end
+
+  def submit_student
+    redirect_to appartenances_create_path(:matieres_id => current_matiere.id, :etudiants_id => params[:etudiants_id])
   end
 
   private

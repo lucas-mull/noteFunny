@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Bienvenue sur noteFunny, <%= @user.prenom %></h1>
+    <p>
+      Vous avez été invité par votre professeur, vous
+      pouvez vous connecter avec votre email: <%= @user.email %>. <br>
+      Votre mot de passe temporaire est: <%= @user.password %>.
+      Vous pourrez le changer après votre première connexion
+    </p>
+    <p>
+      Pour confirmer votre inscription, suivez ce lien: <%= @url %>.
+    </p>
+    <p>Bonne journée !</p>
+  </body>
+</html>
