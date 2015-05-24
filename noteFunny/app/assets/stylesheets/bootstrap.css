@@ -109,6 +109,7 @@ footer {
 
 footer p {
     margin: 0;
+    color: #333;
     padding: 50px 0;
 }
 
@@ -378,12 +379,10 @@ table {
 }
 
 label.submit1 {
-  color: blue;
   text-align: left;
   margin-left: 5%;
 }
 label.submit2 {
-  color: yellow;
   text-align: left;
   margin-left: 2%;
 }
@@ -446,11 +445,12 @@ ul li ul{
   display: none;
   background-color: #f8f8f8;
   position: absolute;
-  text-transform: lowercase;
+  text-transform: none;
   list-style-type: none;
-  padding: 0;
+  padding: 5px;
   margin: 0;
   width: 100%;
+  z-index:99999;
 }
 
 ul li ul li{
@@ -462,6 +462,13 @@ ul li:hover ul{
   display: block;
 }
 
+.pending{
+  color: red;
+}
+
+.activated{
+  color: green;
+}
 /*tr:nth-child(2n+2) {
   background: #CCC
 }

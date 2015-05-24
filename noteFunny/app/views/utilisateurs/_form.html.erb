@@ -20,6 +20,8 @@
     <%= email_field 'utilisateur', 'email' %></p>
     <p><label for="utilisateur_password">Mot de passe: </label>
     <%= password_field 'utilisateur', 'password' %></p>
+    <p><label for="utilisateur_confirm_password">Confirmer le mot de passe: </label>
+    <%= password_field 'utilisateur', 'password_confirmation' %></p>
     <p><%= hidden_field 'utilisateur', 'type' %></p>
   <% else %>
     <p><label for="utilisateur_nom">Nom: </label>

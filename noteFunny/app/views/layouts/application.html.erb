@@ -47,10 +47,13 @@
                         <% if current_user.type != 'Etudiant' %>
 	                       <li><a href='/matieres'>Matières</a></li>
                        <% end %>
-	                    <li><a href='/epreuves'>Résultats</a></li>
-	                    <li><a>Mon compte<small> (connecté en tant que <%= current_user.fullname %>)</small></a>
+	                    <li><a href='/epreuves'>Résultats</a></li>                        
+	                    <li><a>Mon compte<small> (<%= current_user.email %>)</small></a>
                             <ul>
-                                <li><a>Changer mon mot de passe</a></li>
+                                <li><a href='/changePassword'>Changer mon mot de passe</a></li>
+                                <% if current_user.type == 'Admin' %>
+                                    <li><a href='/list'>Gestion des utilisateurs</a></li>
+                                <% end %>
                                 <li><a href='/deconnexion'>Déconnexion</a></li>
                             </ul>     
                         </li>                   
@@ -75,11 +78,11 @@
                     <h1 class="brand-name">noteFunny</h1>
                     <h2>le gestionnaire de notes en ligne</h2>
                     <hr class="tagline-divider">
-                    <h3>
+                    <!-- <h3>
                         <small>By
                             <strong>Valentin Cabanel et Lucas Mull</strong>
                         </small>
-                    </h3>
+                    </h3> -->
                 </div>
             </div>
         </div>
@@ -111,7 +114,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <p>Copyright &copy; Your Website 2014</p>
+                    <p>By Valentin Cabanel & Lucas Mull</p>
                 </div>
             </div>
         </div>
