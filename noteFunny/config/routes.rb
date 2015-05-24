@@ -7,13 +7,17 @@ Rails.application.routes.draw do
   post 'connexion' => 'utilisateurs#login'
   get 'deconnexion' => 'utilisateurs#logout'
   get 'sendConfirmEmail' => 'appartenances#invite'
-  get 'appartenances/create' => 'appartenances#create'
+  post 'appartenances/createList' => 'appartenances#createList'
   get 'confirm/:id' => 'utilisateurs#confirm'
   get 'enseignants' => 'utilisateur#index'
   get 'etudiants' => 'utilisateurs#index'
   get 'add_etu' => 'matieres#add_student'
   post 'submit_etu' => 'matieres#submit_student'
   get 'matieres/:matiere_id/epreuves' => 'epreuves#index_by', :as => 'epreuves_by_matiere'
+  post 'epreuves/set_matiere' => 'epreuves#set_matiere'
+  get 'resultats/create' => 'resultats#create'
+  get 'epreuves/:epreuve_id/resultats' => 'resultats#show', :as => 'resultats_show'
+  post 'resultats/update' => 'resultats#update', :as => 'resultats_update'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

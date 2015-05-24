@@ -8,18 +8,11 @@ class EpreuvesController < ApplicationController
       @utilisateur = current_user
       # session.delete([:current_matiere_id])
       if @utilisateur.type == 'Admin'
-        @epreuves = Epreuve.all
         @matieres = Matiere.all
-      elsif @utilisateur.type != 'Etudiant'
+      elsif @utilisateur.type == 'Enseignant'
         @matieres = @utilisateur.matieres
-        @matieres.each do |m|
-          @epreuves << m.epreuves
-        end
       else
-        @matieres = @utilisateur.appartenances.matieres
-        @matieres.each do |m|
-          @epreuves << m.epreuves
-        end
+        @matieres = Appartenance.getMatieresFromEtu(@utilisateur.id)
       end
     else
       redirect_to root_path
@@ -28,7 +21,7 @@ class EpreuvesController < ApplicationController
 
   def index_by
     if isConnected?
-      @epreuves = Matiere.find(params[:matiere_id]).epreuves
+      @matiere = Matiere.find(params[:matiere_id])
     else
       redirect_to root_path
     end
@@ -46,6 +39,11 @@ class EpreuvesController < ApplicationController
     @epreuve.matiere_id = @matiere.id
   end
 
+  def set_matiere
+    session[:current_matiere_id] = params[:matiere_id]
+    redirect_to new_epreuve_path
+  end
+
   # GET /epreuves/1/edit
   def edit
   end
@@ -57,7 +55,8 @@ class EpreuvesController < ApplicationController
 
     respond_to do |format|
       if @epreuve.save
-        format.html { redirect_to @epreuve, notice: 'epreuve was successfully created.' }
+        session[:current_epreuve_id] = @epreuve.id
+        format.html { redirect_to resultats_create_path(:etudiants_ids => Appartenance.getEtusFromMatiere(@epreuve.matiere.id)) }
         format.json { render :show, status: :created, location: @epreuve }
       else
         format.html { render :new }
@@ -83,6 +82,9 @@ class EpreuvesController < ApplicationController
   # DELETE /epreuves/1
   # DELETE /epreuves/1.json
   def destroy
+    @epreuve.resultats.each do |res|
+      res.destroy
+    end
     @epreuve.destroy
     respond_to do |format|
       format.html { redirect_to epreuves_url, notice: 'epreuve was successfully destroyed.' }

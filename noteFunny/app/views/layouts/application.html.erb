@@ -12,7 +12,7 @@
 	<!--stylesheet_link_tag    'bootstrap.min', media: 'all', 'data-turbolinks-track' => true -->
 
     <!-- Custom CSS -->
-    <%= stylesheet_link_tag    'business-casual', media: 'all' %>
+    <%= stylesheet_link_tag    'noteFunny', media: 'all' %>
 
     <!-- Fonts -->
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
@@ -44,7 +44,9 @@
                 <ul class="nav navbar-nav">
                 	<% if session[:current_user_id] %>
 	                    <li><a href='/'>Accueil</a></li>
-	                    <li><a href='/matieres'>Matières</a></li>
+                        <% if current_user.type != 'Etudiant' %>
+	                       <li><a href='/matieres'>Matières</a></li>
+                       <% end %>
 	                    <li><a href='/epreuves'>Résultats</a></li>
 	                    <li>Connecté en tant que <%= current_user.fullname %><a href='/deconnexion'>(déconnexion)</a></li>
 	                <% else %>
@@ -65,13 +67,14 @@
                     <h2 class="brand-before">
                         <small>Bienvenue sur</small>
                     </h2>
-                    <h1 class="brand-name">noteFunny, le site de notes qui puent</h1>
+                    <h1 class="brand-name">noteFunny</h1>
+                    <h2>le gestionnaire de notes en ligne</h2>
                     <hr class="tagline-divider">
-                    <h2>
+                    <h3>
                         <small>By
-                            <strong>Valentin et Lucas, les bg</strong>
+                            <strong>Valentin Cabanel et Lucas Mull</strong>
                         </small>
-                    </h2>
+                    </h3>
                 </div>
             </div>
         </div>

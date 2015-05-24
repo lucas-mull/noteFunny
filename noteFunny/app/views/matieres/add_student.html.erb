@@ -1,7 +1,23 @@
-<p>Choisissez un étudiant parmi la liste</p>
-<%= form_tag(submit_etu_path) do %>
-<%= select_tag :etudiants_id, options_from_collection_for_select(@etudiants, :id, :fullname, "1") %>
+<h1>Choisissez un étudiant parmi la liste</h1>
+<p id="notice"> <%= notice %> </p>
+<table>
+	<tr class="header">
+		<th>Nom</th>
+		<th>Prénom</th>
+		<th><%= check_box_tag "check_all", false%>  Ajouter</th>
+	</tr>
+<%= form_tag(appartenances_createList_path) do %>
+<% @etudiants.each do |etu| %>
+	<tr>
+		<td><%= etu.nom %></td>
+		<td><%= etu.prenom %></td>
+		<td><%= check_box_tag "checked[]", "#{etu.id}", false %></td>
+	</tr>
+<% end %>	
+</table>		
 <%= submit_tag 'Valider' %>
 <% end %>
-<p>OU</p>
-<%= link_to 'Inviter un nouvel étudiant', new_utilisateur_path(:type => 'Etudiant') %>
+<div class="center">
+	<h3>OU</h3>
+	<%= link_to 'Inviter un nouvel étudiant', new_utilisateur_path(:type => 'Etudiant') %>
+</div>

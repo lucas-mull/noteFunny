@@ -43,7 +43,7 @@ class UtilisateursController < ApplicationController
 
     respond_to do |format|
       if @utilisateur.save
-        if @utilisateur.type = 'Enseignant'
+        if @utilisateur.type == 'Enseignant'
           format.html { redirect_to root_path, notice: 'Votre compte a été créé. Toutefois, un admin doit le valider. Vous recevrez un mail une fois cette opération effectuée' }
           format.json { render :show, status: :created, location: root_path }
         else
@@ -92,7 +92,7 @@ class UtilisateursController < ApplicationController
   end
 
   def logout
-    session.delete(:current_user_id)
+    session.destroy
     respond_to do |format|
       format.html{ redirect_to "/", notice: 'Vous vous êtes déconnectés' }
     end
@@ -106,9 +106,26 @@ class UtilisateursController < ApplicationController
   # DELETE /utilisateurs/1
   # DELETE /utilisateurs/1.json
   def destroy
+    if @utilisateur.type == 'Enseignant'
+      @utilisateur.matieres.each do |m|
+        m.destroy
+      end
+    elsif @utilisateur.type == 'Etudiant'
+      @utilisateur.appartenances.each do |a|
+        a.destroy
+      end
+      @utilisateur.resultats.each do |res|
+        res.destroy
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to root_path, notice: 'Impossible de supprimer un compte admin' }
+        format.json { head :no_content }
+      end
+    end
     @utilisateur.destroy
     respond_to do |format|
-      format.html { redirect_to utilisateurs_url, notice: 'Utilisateur was successfully destroyed.' }
+      format.html { redirect_to utilisateurs_url, notice: 'Utilisateur supprimé avec succès' }
       format.json { head :no_content }
     end
   end

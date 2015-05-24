@@ -10,34 +10,39 @@
   </thead>
 
   <tbody>
-      <tr>
+      <tr class="header">
         <th>Matière</th>
         <th>Titre</th>
         <th>Date</th>
+        <th>Actions</th>
+        <td></td>
+        <td></td>
       </tr>
-    <% if @epreuves.count == 0 %>
-      <tr>
-        <td>Aucune épreuve</td>
-      </tr>
-    <% else %>
       <% @matieres.each do |mat| %>
-        <% if mat.epreuves.count !=0 %>
-          <% mat.epreuves.each do |epreuve| %>
-            <tr>
-              <td><%= epreuve.matiere.titre %></td>
-              <td><%= epreuve.titre %></td>
-              <td><%= epreuve.date %></td>
-              <td><%= link_to 'Show', epreuve %></td>
-              <td><%= link_to 'Edit', edit_epreuve_path(epreuve) %></td>            
-              <td><%= link_to 'Destroy', epreuve, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-            </tr>
-          <% end %>
+        <tr>
+          <th><%= mat.titre %></th>
+        </tr>
+        <% mat.epreuves.each do |epreuve| %>
           <tr>
-            <td><%= link_to 'Créer une nouvelle épreuve', new_epreuve_path %></td>
+            <td></td>
+            <th><a href=<%= resultats_show_path(epreuve.id) %>><%= epreuve.titre %></a></th>
+            <td><%= epreuve.date.strftime("%d-%m-%Y") %></td>
+            <td><%= link_to 'Modifier', edit_epreuve_path(epreuve) %> | <%= link_to 'Supprimer', epreuve, method: :delete, data: { confirm: 'Etes vous sûr ?' } %></td>
           </tr>
         <% end %>
+        <tr class="header">
+          <td>
+            <% if current_user.type != 'Etudiant' %>
+              <%= link_to 'Créer une nouvelle épreuve', epreuves_set_matiere_path(:matiere_id => mat.id), method: :post %>
+            <% end %>
+          </td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
       <% end %>
-    <% end %>
   </tbody>
 </table>
 
