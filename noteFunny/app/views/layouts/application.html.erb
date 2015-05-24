@@ -48,7 +48,12 @@
 	                       <li><a href='/matieres'>Matières</a></li>
                        <% end %>
 	                    <li><a href='/epreuves'>Résultats</a></li>
-	                    <li>Connecté en tant que <%= current_user.fullname %><a href='/deconnexion'>(déconnexion)</a></li>
+	                    <li><a>Mon compte<small> (connecté en tant que <%= current_user.fullname %>)</small></a>
+                            <ul>
+                                <li><a>Changer mon mot de passe</a></li>
+                                <li><a href='/deconnexion'>Déconnexion</a></li>
+                            </ul>     
+                        </li>                   
 	                <% else %>
 	                	<li><a href='/'>Accueil</a></li>
                 	<% end %>

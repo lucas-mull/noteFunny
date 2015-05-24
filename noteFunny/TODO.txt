@@ -3,7 +3,6 @@ Fonctionnalités:
 - Hasher le mot de passe lors d'une inscription
 - Rajouter le 'mot de passe oublié ?'
 - Rajouter un onglet pour voir tous les utilisateurs pour les admins (back office).
-- Refaire 'Ajouter un étudiant à une matière' -> n'afficher que les étudiants n'étant pas encore inscrits dans la matière, et afficher ces étudiants en liste avec des checkbox -> Les étudiants cochés seront ajoutés.
 - Possibilité d'importer une liste d'étudiants pour des invitations de groupes ?
 
 
@@ -11,10 +10,8 @@ Javascript:
 - Pour la liste des étudiants lorsqu'on veut en ajouter à une matière: mettre une checkbox en haut qui coche tous les étudiants.
 
 HTML / CSS:
-- Structurer les tableaux correctement dans chaque section qui les utilise.
 - Traduire tous les trucs auto-générés
 - Aligner les formulaires proprement.
 - Rétrécir un peu la taille du cadre contenant le titre (ça prend la moitié de la page c'est un peu overkill).
 - Pour l'onglet qui affiche 'connecté en tant que <nom> (déconnexion)', faire en sorte qu'il s'affiche proprement (en plus petit et le "déconnexion" en bleu (ou juste qu'on voit que c'est un lien). Faire aussi en sorte que lorsqu'on passe par dessus il déroule un menu avec un objet 'changer son mot de passe' et d'autres trucs peut-être.
-- Assombrir le background d'une ligne sur deux dans les tableaux pour faciliter la lecture.
 - Embellir le truc en général (fais toi plaiz')

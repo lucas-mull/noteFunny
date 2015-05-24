@@ -4,7 +4,7 @@
 	<tr class="header">
 		<th>Nom</th>
 		<th>Prénom</th>
-		<th><%= check_box_tag "check_all", false%>  Ajouter</th>
+		<th><%= check_box_tag "check_all", "", false, :onclick => "checkAllCbs(this);"%>  Ajouter</th>
 	</tr>
 <%= form_tag(appartenances_createList_path) do %>
 <% @etudiants.each do |etu| %>
