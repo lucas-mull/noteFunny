@@ -1,4 +1,5 @@
 <p id="alert"><%= alert %></p>
+<p id="notice"><%= notice %></p>
 
 <h1>Choisissez votre épreuve</h1>
 
@@ -20,7 +21,7 @@
       </tr>
       <% @matieres.each do |mat| %>
         <tr>
-          <th><%= mat.titre %></th>
+          <th class="majuscule"><%= mat.titre %></th>
         </tr>
         <% mat.epreuves.each do |epreuve| %>
           <tr>
