@@ -32,7 +32,7 @@
         <%= text_field 'utilisateur', 'prenom' %></tr></td>
         <tr><td><label for="utilisateur_email">Adresse email: </label><br>
         <%= email_field 'utilisateur', 'email' %></tr></td>
-        <p><%= hidden_field 'utilisateur', 'password' %></p>
+        <p><%= hidden_field 'utilisateur', 'password', :value => @password %></p>
       <% end %>
     </table>
     <%= f.submit 'Valider' %>

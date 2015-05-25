@@ -21,7 +21,7 @@ class UtilisateursController < ApplicationController
   def new
     @utilisateur = Utilisateur.new
     if (params[:type] == 'Etudiant')
-      @utilisateur.password = SecureRandom.hex  
+      @password = SecureRandom.base64(10)  
     end
     @utilisateur.type = params[:type]  
   end
@@ -34,7 +34,7 @@ class UtilisateursController < ApplicationController
 
   def list
     if isConnected? && current_user.type == 'Admin'
-      @utilisateurs = Utilisateur.all
+      @utilisateurs = Utilisateur.all.sort_by{|user| user.nom}
       @utilisateur = current_user
     else
       redirect_to root_path
@@ -44,6 +44,7 @@ class UtilisateursController < ApplicationController
   # POST /utilisateurs
   # POST /utilisateurs.json
   def create
+    @password = params[:utilisateur][:password]
     if params[:utilisateur][:type]
       @utilisateur = Enseignant.new(utilisateur_params)
     else
@@ -56,7 +57,7 @@ class UtilisateursController < ApplicationController
           format.html { redirect_to root_path, notice: 'Votre compte a été créé. Toutefois, un admin doit le valider. Vous recevrez un mail une fois cette opération effectuée' }
           format.json { render :show, status: :created, location: root_path }
         else
-          format.html { redirect_to sendConfirmEmail_path(:matiere_id => current_matiere.id, :etudiant_id => @utilisateur.id) }
+          format.html { redirect_to sendConfirmEmail_path(:matiere_id => current_matiere.id, :etudiant_id => @utilisateur.id, :temp_password => @password) }
           format.json { render :show, status: :created, location: matieres_path }
         end
       else
@@ -81,20 +82,22 @@ class UtilisateursController < ApplicationController
   end
 
   def login
-
-    respond_to do |format|
-      if (user = Utilisateur.find_by(email: params[:email])) != nil
-        if user.authenticate(params[:password])
-          if user.etat != 'pending'
-            session[:current_user_id] = user.id
-            format.html{ redirect_to "/", alert: 'Vous êtes connecté.' }
-          else
-            format.html{ redirect_to "/", alert: 'Votre compte n\'a pas encore été activé' }
-          end
+    if (user = Utilisateur.find_by(email: params[:email])) != nil
+      if user.authenticate(params[:password])
+        if user.etat != 'pending'
+          session[:current_user_id] = user.id
+          flash[:alert] = 'Vous êtes connecté.'
+          redirect_to root_path
+        else
+          flash[:alert] = 'Votre compte n\'a pas encore été activé'
+          redirect_to root_path
         end
-      else
-        format.html{ redirect_to "/", alert: 'Mauvais identifiant ou mot de passe' }
       end
+      flash[:alert] = 'Mauvais identifiant ou mot de passe'
+      redirect_to root_path
+    else
+      flash[:alert] = 'Mauvais identifiant ou mot de passe'
+      redirect_to root_path
     end
   end
 
@@ -125,8 +128,7 @@ class UtilisateursController < ApplicationController
   def confirm
     @utilisateurs = Utilisateur.all
     @utilisateur = Utilisateur.find(params[:id])
-    @utilisateur.etat = 'validé'
-    @utilisateur.update()
+    @utilisateur.update_attribute('etat', 'validé')
     respond_to do |format|
       format.html{ redirect_to root_path, notice: 'Vous pouvez désormais vous connecter au site grâce à votre email'}
     end

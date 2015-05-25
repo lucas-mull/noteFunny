@@ -1,4 +1,8 @@
-<h1>Inscription</h1>
+<% if @utilisateur.type == 'Etudiant' %>
+	<h1>Invitation</h1>
+<% else %>
+	<h1>Inscription</h1>
+<% end %>
 
 <%= render 'form' %>
 

@@ -8,7 +8,7 @@ class AppartenancesController < ApplicationController
 		else
 			@appartenance = Appartenance.new(appartenances_params)
 			@user = Utilisateur.find(params[:etudiant_id])
-			UserMailer.welcome_email(@user).deliver_now
+			UserMailer.welcome_email(@user, params[:temp_password]).deliver_now
 			respond_to do |format|
 				if @appartenance.save
 					format.html { redirect_to matiere_path(:id => current_matiere.id), notice: 'Invitation envoyée' }
