@@ -46,7 +46,7 @@ class MatieresController < ApplicationController
     # @matiere.enseignant_id = current_user.id
     respond_to do |format|
       if @matiere.save
-        format.html { redirect_to matieres_path, notice: 'Matiere was successfully created.' }
+        format.html { redirect_to matieres_path, notice: 'Votre matiere a bien été modifié.' }
         format.json { render :show, status: :created, location: @matiere }
       else
         format.html { render :new }
@@ -80,7 +80,7 @@ class MatieresController < ApplicationController
     end
     @matiere.destroy
     respond_to do |format|
-      format.html { redirect_to matieres_url, notice: 'Matiere was successfully destroyed.' }
+      format.html { redirect_to matieres_url, notice: 'Votre matiere a bien été supprimé.' }
       format.json { head :no_content }
     end
   end

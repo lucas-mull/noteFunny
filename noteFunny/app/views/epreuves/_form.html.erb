@@ -12,11 +12,13 @@
   <% end %>
 
   <div class="actions">
-    <p><label for="epreuve_titre">Nom de l'épreuve</label>
-    <%= text_field 'epreuve', 'titre' %></p>
-    <p><label for="epreuve_date">Date de l'épreuve</label>
-    <%= date_field 'epreuve', 'date' %></p>
-    <%= hidden_field 'epreuve', 'matiere_id' %>
+    <table>
+      <tr><td><label for="epreuve_titre">Nom de l'épreuve</label><br>
+      <%= text_field 'epreuve', 'titre' %></tr></td>
+      <tr><td><label for="epreuve_date">Date de l'épreuve</label><br>
+      <%= date_field 'epreuve', 'date' %></tr></td>
+      <%= hidden_field 'epreuve', 'matiere_id' %>
+    </table>
     <%= f.submit %>
   </div>
 <% end %>

@@ -19,9 +19,9 @@
         <th>Actions</th>
       </tr>
     <% @matieres.each do |matiere| %>
-      <a href=<%= matiere_path(matiere.id) %>>
+      <a href=<%= matiere_path(matiere.id) %><>
       <tr>
-        <td class="majuscule"><FONT size="5pt"><strong><a href=<%= matiere_path(matiere.id) %>><%= matiere.titre %></a></strong></FONT></td>
+        <td class="majuscule"><FONT size="3pt"><strong><a href=<%= matiere_path(matiere.id) %>><%= matiere.titre %></a></strong></FONT></td>
         <td><%= matiere.description%></td>
         <td><%= matiere.debut.strftime("%d-%m-%Y") %></td>
         <td><%= matiere.fin.strftime("%d-%m-%Y")%></td>
