@@ -56,7 +56,7 @@ class UtilisateursController < ApplicationController
           format.html { redirect_to root_path, notice: 'Votre compte a été créé. Toutefois, un admin doit le valider. Vous recevrez un mail une fois cette opération effectuée' }
           format.json { render :show, status: :created, location: root_path }
         else
-          format.html { redirect_to sendConfirmEmail_path(:matieres_id => current_matiere.id, :etudiants_id => @utilisateur.id) }
+          format.html { redirect_to sendConfirmEmail_path(:matiere_id => current_matiere.id, :etudiant_id => @utilisateur.id) }
           format.json { render :show, status: :created, location: matieres_path }
         end
       else

@@ -22,14 +22,14 @@ ActiveRecord::Schema.define(version: 20150522082550) do
   end
 
   create_table "appartenances", force: :cascade do |t|
-    t.integer "matieres_id",  null: false
-    t.integer "etudiants_id", null: false
+    t.integer "matiere_id",  null: false
+    t.integer "etudiant_id", null: false
   end
 
   create_table "epreuves", force: :cascade do |t|
-    t.string  "titre",       limit: 20, null: false
-    t.date    "date",                   null: false
-    t.integer "matieres_id",            null: false
+    t.string  "titre",      limit: 20, null: false
+    t.date    "date",                  null: false
+    t.integer "matiere_id",            null: false
   end
 
   create_table "matieres", force: :cascade do |t|

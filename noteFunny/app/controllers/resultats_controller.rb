@@ -2,14 +2,17 @@ class ResultatsController < ApplicationController
 
 	def create
 		etu_ids = params[:etudiants_ids]
-		etu_ids.each do |id|
-			@resultat = Resultat.new(:epreuve_id => current_epreuve.id, :etudiant_id => id)
-			@resultat.save
+		if etu_ids != nil
+			etu_ids.each do |id|
+				@resultat = Resultat.new(:epreuve_id => current_epreuve.id, :etudiant_id => id)
+				@resultat.save
+			end
 		end
 		respond_to do |format|
 			format.html { redirect_to epreuves_path, notice: 'L\'épreuve a été ajoutée avec succès.'}
 			format.json { render :show, status: :created, location: epreuves_path }
 		end
+
 	end
 
 	def show

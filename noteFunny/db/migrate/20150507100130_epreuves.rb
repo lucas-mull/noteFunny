@@ -3,7 +3,7 @@ class Epreuves < ActiveRecord::Migration
   	create_table :epreuves do |t|
   		t.column :titre, :string, :limit => 20, :null => false
   		t.column :date, :date, :null => false
-  		t.column :matieres_id, :integer, :null => false
+  		t.column :matiere_id, :integer, :null => false
   	end
   end
 

@@ -1,13 +1,13 @@
 class AppartenancesController < ApplicationController
 	def invite
-		if Appartenance.checkForDuplicates(params[:matières_id], params[:etudiants_id])
+		if Appartenance.checkForDuplicates(params[:matiere_id], params[:etudiant_id])
 			respond_to do |format|
 				format.html { redirect_to matiere_path(:id => current_matiere.id), notice: 'Cet étudiant est déjà inscrit à cette matière' }
 	      		format.json { render :show, status: :created, location: matiere_path(:id => current_matiere.id) }
 	      	end
 		else
 			@appartenance = Appartenance.new(appartenances_params)
-			@user = Utilisateur.find(params[:etudiants_id])
+			@user = Utilisateur.find(params[:etudiant_id])
 			UserMailer.welcome_email(@user).deliver_now
 			respond_to do |format|
 				if @appartenance.save
@@ -25,7 +25,7 @@ class AppartenancesController < ApplicationController
 	  		matiere_id = current_matiere.id
 	  		etu_ids.each do |id|
 	  			if !Appartenance.checkForDuplicates(matiere_id, id)
-		  			@appartenance = Appartenance.new(:matieres_id => matiere_id, :etudiants_id => id)
+		  			@appartenance = Appartenance.new(:matiere_id => matiere_id, :etudiant_id => id)
 		  			@appartenance.save
 		  		end
 	  		end
@@ -44,7 +44,7 @@ class AppartenancesController < ApplicationController
 	private
 
 	def appartenances_params
-		allow = [:matieres_id, :etudiants_id]
+		allow = [:matiere_id, :etudiant_id]
 		params.permit(allow)
 	end
 end

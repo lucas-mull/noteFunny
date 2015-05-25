@@ -56,7 +56,7 @@ class EpreuvesController < ApplicationController
     respond_to do |format|
       if @epreuve.save
         session[:current_epreuve_id] = @epreuve.id
-        format.html { redirect_to resultats_create_path(:etudiants_ids => Appartenance.getEtusFromMatiere(@epreuve.matiere.id)) }
+        format.html { redirect_to epreuves_path }
         format.json { render :show, status: :created, location: @epreuve }
       else
         format.html { render :new }
