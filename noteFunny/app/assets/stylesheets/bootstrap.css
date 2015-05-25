@@ -476,6 +476,15 @@ ul li ul li{
   width: 100%;
 }
 
+ul li ul li a{
+  color: #777;
+}
+
+ul li ul li a:hover{
+  color: #000;
+  text-decoration: none;
+}
+
 ul li:hover ul{
   display: block;
 }
@@ -492,7 +501,7 @@ ul li:hover ul{
 }
 
 tr:nth-child(2n+3) {
-  background: #FFF
+  background: transparent
 }*/
 
 /*#hideMe {

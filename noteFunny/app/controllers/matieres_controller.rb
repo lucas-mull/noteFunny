@@ -88,7 +88,7 @@ class MatieresController < ApplicationController
   def add_student
     already_in = Appartenance.getIdsInMatiere(current_matiere.id)
     if already_in.count != 0
-      @etudiants = Etudiant.where("id NOT IN (?)", already_in)
+      @etudiants = Etudiant.where("id NOT IN (?)", already_in).sort_by{|etu| etu.nom}
     else
       @etudiants = Etudiant.all
     end

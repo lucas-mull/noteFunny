@@ -8,11 +8,11 @@
     <p>
       Vous avez été invité par votre professeur, vous
       pouvez vous connecter avec votre email: <%= @user.email %>. <br>
-      Votre mot de passe temporaire est: <%= @user.password %>.
+      Votre mot de passe temporaire est: <%= @password %>.
       Vous pourrez le changer après votre première connexion
     </p>
     <p>
-      Pour confirmer votre inscription, suivez ce lien: <%= @url %>.
+      Pour confirmer votre inscription, suivez ce lien: <%= utilisateurs_confirm_url(@user.id) %>.
     </p>
     <p>Bonne journée !</p>
   </body>
