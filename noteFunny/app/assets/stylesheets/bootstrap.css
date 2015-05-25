@@ -418,14 +418,23 @@ input#email {
   text-transform: uppercase;
 }
 
-<<<<<<< HEAD
+
 p {
     opacity:1;
-    transition:opacity 500ms;
+    transition: opacity 300ms;
+    text-align: center;
+
 }
+p#alert,
+p#notice{
+  color: yellow;
+}
+
 p.hideToi {
     opacity:0;
-=======
+    color: red;
+
+  }
 input[type="submit"] {
   display: block;
   margin-left: auto;

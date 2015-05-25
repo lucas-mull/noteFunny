@@ -70,10 +70,10 @@ class EpreuvesController < ApplicationController
   def update
     respond_to do |format|
       if @epreuve.update(epreuve_params)
-        format.html { redirect_to @epreuve, notice: 'epreuve was successfully updated.' }
-        format.json { render :show, status: :ok, location: @epreuve }
+        format.html { redirect_to epreuves_path, alert: 'Vos modifications ont bien été prises en compte.' }
+        format.json { render :show, status: :ok, location: epreuves_path }
       else
-        format.html { render :edit }
+        format.html { render :index }
         format.json { render json: @epreuve.errors, status: :unprocessable_entity }
       end
     end
@@ -87,7 +87,7 @@ class EpreuvesController < ApplicationController
     end
     @epreuve.destroy
     respond_to do |format|
-      format.html { redirect_to epreuves_url, notice: 'epreuve was successfully destroyed.' }
+      format.html { redirect_to epreuves_url, alert: 'Votre épreuve a bien été supprimé.' }
       format.json { head :no_content }
     end
   end

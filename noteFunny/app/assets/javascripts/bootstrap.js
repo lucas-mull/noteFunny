@@ -60,8 +60,8 @@ if (typeof jQuery === 'undefined') {
     return this
   }
   setTimeout(function(){
-    document.getElementById('notice').className = 'hideToi';
-  }, 5000);
+    document.getElementById('alert').className = 'hideToi';
+  }, 3000);
 
 
   $(function () {
