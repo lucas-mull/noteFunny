@@ -374,6 +374,7 @@ fieldset {
     top: 0px;
 }
 
+
 table {
   width: 100%;
 }
@@ -417,6 +418,23 @@ input#email {
   text-transform: uppercase;
 }
 
+
+p {
+    opacity:1;
+    transition: opacity 300ms;
+    text-align: center;
+
+}
+p#alert,
+p#notice{
+  color: yellow;
+}
+
+p.hideToi {
+    opacity:0;
+    color: red;
+
+  }
 input[type="submit"] {
   display: block;
   margin-left: auto;
@@ -492,14 +510,8 @@ tr:nth-child(2n+3) {
         height:0;
         overflow:hidden;
     }
+>>>>>>> ed19d21ed94fd1c14f29fec6fadb06585a701ea0
 }
-@-webkit-keyframes cssAnimation {
-    to {
-        width:0;
-        height:0;
-        visibility:hidden;
-    }
-}*/
 
 legend {
   padding: 0;

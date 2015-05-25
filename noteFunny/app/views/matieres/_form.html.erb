@@ -12,20 +12,23 @@
   <% end %>
 
   <div class="actions">
-    <p><label for="matiere_title">Titre: </label>
-    <%= text_field 'matiere', 'titre' %></p>
-    <p><label for="matiere_debut">Date de début: </label>
-    <%= date_field 'matiere', 'debut' %></p>
-    <p><label for="matiere_fin">Date de fin: </label>
-    <%= date_field 'matiere', 'fin' %></p>
-    <p><label for="matiere_description">Description: </label>
-    <%= text_area 'matiere', 'description' %></p>
+    <table>
+    <tr><td><label for="matiere_title">Titre: </label><br>
+    <%= text_field 'matiere', 'titre' %></tr></td>
+    <tr><td><label for="matiere_debut">Date de début: </label><br>
+    <%= date_field 'matiere', 'debut' %></tr></td>
+    <tr><td><label for="matiere_fin">Date de fin: </label><br>
+    <%= date_field 'matiere', 'fin' %></tr></td>
+    <tr><td><label for="matiere_description">Description: </label><br>
+    <%= text_area 'matiere', 'description' %></tr></td>
     <% if @utilisateur.type == 'Admin' %>
       <p><label for="matiere_enseignant_id">Enseignant responsable: </label>
       <%= collection_select(:matiere, :enseignant_id, Enseignant.all, :id, :fullname) %></p>
     <% else %>
       <%= hidden_field 'matiere', 'enseignant_id' %>
     <% end %>
+    </table>
     <%= f.submit %>
+    
   </div>
 <% end %>

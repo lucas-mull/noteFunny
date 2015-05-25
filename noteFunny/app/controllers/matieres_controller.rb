@@ -36,6 +36,7 @@ class MatieresController < ApplicationController
 
   # GET /matieres/1/edit
   def edit
+    @utilisateur = current_user
   end
 
   # POST /matieres

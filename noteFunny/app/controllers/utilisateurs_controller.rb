@@ -81,19 +81,19 @@ class UtilisateursController < ApplicationController
   end
 
   def login
-    
+
     respond_to do |format|
       if (user = Utilisateur.find_by(email: params[:email])) != nil
         if user.authenticate(params[:password])
           if user.etat != 'pending'
             session[:current_user_id] = user.id
-            format.html{ redirect_to "/", notice: 'Vous êtes connecté.' }
+            format.html{ redirect_to "/", alert: 'Vous êtes connecté.' }
           else
-            format.html{ redirect_to "/", notice: 'Votre compte n\'a pas encore été activé' }
+            format.html{ redirect_to "/", alert: 'Votre compte n\'a pas encore été activé' }
           end
         end
       else
-        format.html{ redirect_to "/", notice: 'Mauvais identifiant ou mot de passe' }
+        format.html{ redirect_to "/", alert: 'Mauvais identifiant ou mot de passe' }
       end
     end
   end
@@ -101,7 +101,7 @@ class UtilisateursController < ApplicationController
   def logout
     session.destroy
     respond_to do |format|
-      format.html{ redirect_to "/", notice: 'Vous vous êtes déconnectés' }
+      format.html{ redirect_to "/", alert: 'Vous vous êtes déconnectés' }
     end
   end
 

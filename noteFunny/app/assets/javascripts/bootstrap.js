@@ -59,6 +59,10 @@ if (typeof jQuery === 'undefined') {
     setTimeout(callback, duration)
     return this
   }
+  setTimeout(function(){
+    document.getElementById('alert').className = 'hideToi';
+  }, 3000);
+
 
   $(function () {
     $.support.transition = transitionEnd()

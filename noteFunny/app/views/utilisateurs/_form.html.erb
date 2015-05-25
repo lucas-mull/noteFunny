@@ -11,28 +11,34 @@
   <% end %>
 
   <div class="actions">
-  <% if @utilisateur.type == 'Enseignant' %>   
-    <p><label for="utilisateur_nom">Nom: </label>
-    <%= text_field 'utilisateur', 'nom' %></p>
-    <p><label for="utilisateur_prenom">Prenom: </label>
-    <%= text_field 'utilisateur', 'prenom' %></p>
-    <p><label for="utilisateur_email">Adresse email: </label>
-    <%= email_field 'utilisateur', 'email' %></p>
-    <p><label for="utilisateur_password">Mot de passe: </label>
-    <%= password_field 'utilisateur', 'password' %></p>
-    <p><label for="utilisateur_confirm_password">Confirmer le mot de passe: </label>
-    <%= password_field 'utilisateur', 'password_confirmation' %></p>
-    <p><%= hidden_field 'utilisateur', 'type' %></p>
-  <% else %>
-    <p><label for="utilisateur_nom">Nom: </label>
-    <%= text_field 'utilisateur', 'nom' %></p>
-    <p><label for="utilisateur_prenom">Prenom: </label>
-    <%= text_field 'utilisateur', 'prenom' %></p>
-    <p><label for="utilisateur_email">Adresse email: </label>
-    <%= email_field 'utilisateur', 'email' %></p>
-    <p><%= hidden_field 'utilisateur', 'password' %></p>
-  <% end %>
-  <%= f.submit 'Valider' %>
+
+    <table>
+      <% if @utilisateur.type == 'Enseignant' %>   
+        <tr><td><label for="utilisateur_nom">Nom: </label><br>
+        <%= text_field 'utilisateur', 'nom' %></tr></td>
+        <tr><td><label for="utilisateur_prenom">Prenom: </label><br>
+        <%= text_field 'utilisateur', 'prenom' %></tr></td>
+        <tr><td><label for="utilisateur_email">Adresse email: </label><br>
+        <%= email_field 'utilisateur', 'email' %></tr></td>
+        <tr><td><label for="utilisateur_password">Mot de passe: </label><br>
+        <%= password_field 'utilisateur', 'password' %></tr></td>
+        <tr><td><label for="utilisateur_confirm_password">Confirmer le mot de passe: </label><br>
+        <%= password_field 'utilisateur', 'password_confirmation' %></tr></td>
+        <p><%= hidden_field 'utilisateur', 'type' %></p>
+      <% else %>
+        <tr><td><label for="utilisateur_nom">Nom: </label><br>
+        <%= text_field 'utilisateur', 'nom' %></tr></td>
+        <tr><td><label for="utilisateur_prenom">Prenom: </label><br>
+        <%= text_field 'utilisateur', 'prenom' %></tr></td>
+        <tr><td><label for="utilisateur_email">Adresse email: </label><br>
+        <%= email_field 'utilisateur', 'email' %></tr></td>
+        <p><%= hidden_field 'utilisateur', 'password' %></p>
+      <% end %>
+    </table>
+    <%= f.submit 'Valider' %>
+
+  
+
   </div>
 
 <% end %>
