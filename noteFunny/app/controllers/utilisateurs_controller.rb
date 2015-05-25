@@ -1,4 +1,5 @@
 require 'securerandom'
+require 'bcrypt'
 
 class UtilisateursController < ApplicationController
   before_action :set_utilisateur, only: [:show, :edit, :update, :destroy]
@@ -31,6 +32,15 @@ class UtilisateursController < ApplicationController
   def edit
   end
 
+  def list
+    if isConnected? && current_user.type == 'Admin'
+      @utilisateurs = Utilisateur.all
+      @utilisateur = current_user
+    else
+      redirect_to root_path
+    end
+  end
+
   # POST /utilisateurs
   # POST /utilisateurs.json
   def create
@@ -40,10 +50,9 @@ class UtilisateursController < ApplicationController
       @utilisateur = Etudiant.new(utilisateur_params)
     end
     @utilisateur.etat = 'pending'
-
     respond_to do |format|
       if @utilisateur.save
-        if @utilisateur.type = 'Enseignant'
+        if @utilisateur.type == 'Enseignant'
           format.html { redirect_to root_path, notice: 'Votre compte a été créé. Toutefois, un admin doit le valider. Vous recevrez un mail une fois cette opération effectuée' }
           format.json { render :show, status: :created, location: root_path }
         else
@@ -75,40 +84,89 @@ class UtilisateursController < ApplicationController
 
     respond_to do |format|
       if (user = Utilisateur.find_by(email: params[:email])) != nil
-        if user.password == params[:password]
+        if user.authenticate(params[:password])
           if user.etat != 'pending'
             session[:current_user_id] = user.id
             format.html{ redirect_to "/", notice: 'Vous êtes connecté.' }
           else
             format.html{ redirect_to "/", notice: 'Votre compte n\'a pas encore été activé' }
           end
-        else
-          format.html{ redirect_to "/", notice: 'Mauvais mot de passe' }
         end
       else
-        format.html{ redirect_to "/", notice: 'Utilisateur inconnu' }
+        format.html{ redirect_to "/", notice: 'Mauvais identifiant ou mot de passe' }
       end
     end
   end
 
   def logout
-    session.delete(:current_user_id)
+    session.destroy
     respond_to do |format|
       format.html{ redirect_to "/", notice: 'Vous vous êtes déconnectés' }
     end
   end
 
+  def change_password
+  end
+
+  def submit_password_change
+    @utilisateur = current_user
+    if @utilisateur.authenticate(params[:old_password])
+      @utilisateur.update(:password => params[:new_password], :password_confirmation => params[:new_password_confirmation])
+      respond_to do |format|
+        format.html{ redirect_to root_path, notice: 'Mot de passe changé avec succès'}
+      end
+    else
+      respond_to do |format|
+        format.html{ redirect_to root_path, notice: 'Mot de passe incorrect'}
+      end
+    end
+  end
+
   def confirm
+    @utilisateurs = Utilisateur.all
     @utilisateur = Utilisateur.find(params[:id])
-    @utilisateur.update(:etat => "validé")
+    @utilisateur.etat = 'validé'
+    @utilisateur.update()
+    respond_to do |format|
+      format.html{ redirect_to root_path, notice: 'Vous pouvez désormais vous connecter au site grâce à votre email'}
+    end
+  end
+
+  def confirm_admin
+    @utilisateurs = Utilisateur.all
+    @utilisateur = Utilisateur.find(params[:id])
+    respond_to do |format|
+      if @utilisateur.update_attribute('etat', 'validé')
+        format.html{ redirect_to utilisateurs_list_path, notice: 'Utilisateur validé'}
+      else
+        format.html { render :list }
+      end
+    end
   end
 
   # DELETE /utilisateurs/1
   # DELETE /utilisateurs/1.json
   def destroy
+    if @utilisateur.type == 'Enseignant'
+      @utilisateur.matieres.each do |m|
+        m.destroy
+      end
+    elsif @utilisateur.type == 'Etudiant'
+      @utilisateur.appartenances.each do |a|
+        a.destroy
+      end
+      @utilisateur.resultats.each do |res|
+        res.destroy
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to utilisateurs_list_path, notice: 'Impossible de supprimer un compte admin' }
+        format.json { head :no_content }
+      end
+    end
     @utilisateur.destroy
     respond_to do |format|
-      format.html { redirect_to utilisateurs_url, notice: 'Utilisateur was successfully destroyed.' }
+      format.html { redirect_to utilisateurs_list_path, notice: 'Utilisateur supprimé avec succès' }
       format.json { head :no_content }
     end
   end
@@ -121,7 +179,7 @@ class UtilisateursController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def utilisateur_params
-      allow = [:nom, :prenom, :email, :password, :type]
+      allow = [:nom, :prenom, :email, :password, :password_confirmation, :type]
       params.require(:utilisateur).permit(allow)
     end
 end

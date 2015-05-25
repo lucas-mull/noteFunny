@@ -1,4 +1,4 @@
 class Epreuve < ActiveRecord::Base
-	belongs_to	:matieres
+	belongs_to	:matiere
 	has_many :resultats
 end

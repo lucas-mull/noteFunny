@@ -1,19 +1,40 @@
 Rails.application.routes.draw do
 
+  # ROOT
   root 'utilisateurs#index'
+
+  # UtilisateursController
   resources :utilisateurs
-  resources :matieres
-  resources :epreuves
   post 'connexion' => 'utilisateurs#login'
   get 'deconnexion' => 'utilisateurs#logout'
-  get 'sendConfirmEmail' => 'appartenances#invite'
-  get 'appartenances/create' => 'appartenances#create'
+  get 'changePassword' => 'utilisateurs#change_password'
+  post 'submitNewPassword' => 'utilisateurs#submit_password_change'
+  get '/list' => 'utilisateurs#list', :as => 'utilisateurs_list'
   get 'confirm/:id' => 'utilisateurs#confirm'
+  get 'confirm_admin/:id' => 'utilisateurs#confirm_admin'
   get 'enseignants' => 'utilisateur#index'
   get 'etudiants' => 'utilisateurs#index'
+
+  # MatieresController
+  resources :matieres
   get 'add_etu' => 'matieres#add_student'
   post 'submit_etu' => 'matieres#submit_student'
-  get 'epreuves' => 'epreuves#index_by', :as => 'epreuves_by_matiere'
+
+  # AppartenancesController
+  get 'sendConfirmEmail' => 'appartenances#invite'
+  post 'appartenances/createList' => 'appartenances#createList'
+
+  # EpreuvesController
+  resources :epreuves
+  get 'matieres/:matiere_id/epreuves' => 'epreuves#index_by', :as => 'epreuves_by_matiere'
+  post 'epreuves/set_matiere' => 'epreuves#set_matiere'
+
+  # ResultatsController
+  get 'resultats/create' => 'resultats#create'
+  get 'epreuves/:epreuve_id/resultats' => 'resultats#show', :as => 'resultats_show'
+  post 'resultats/update' => 'resultats#update', :as => 'resultats_update'
+  
+  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

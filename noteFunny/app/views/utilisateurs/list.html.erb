@@ -1,0 +1,37 @@
+<p id="notice"><%= notice %></p>
+<% if @utilisateur.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@utilisateur.errors.count, "error") %> prohibited this utilisateur from being saved:</h2>
+      <ul>
+      <% @utilisateur.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+<table>
+	<tr class="header">
+		<th>Nom</th>
+		<th>Prénom</th>
+		<th>E-mail</th>
+		<th>Type</th>
+		<th>Statut</th>
+		<th>Actions</th>
+	</tr>
+	<% @utilisateurs.each do |user| %>
+		<tr>
+			<td><%= user.nom %></td>
+			<td><%= user.prenom %></td>
+			<td><%= user.email %></td>
+			<td><%= user.type %></td>
+			<% if user.etat == 'pending' %>
+				<td class="pending"><a href=<%='/confirm_admin/' + user.id.to_s%>><%= user.etat %></a></td>
+			<% else %>
+				<td class="activated"><%= user.etat %></td>
+			<% end %>
+			<% if user != current_user %>
+				<td><%= link_to 'Supprimer', 'utilisateurs/' + user.id.to_s, method: :delete, data: { confirm: 'Etes vous sûr ?' } %></td>
+			<% end %>
+		</tr>
+	<% end %>
+</table>

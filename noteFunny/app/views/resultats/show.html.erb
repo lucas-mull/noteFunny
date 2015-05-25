@@ -1,0 +1,35 @@
+<h1 class="titre">Résultats pour l'épreuve <%= @epreuve.matiere.titre %> | <%= @epreuve.titre %></h1>
+
+<%= form_tag(resultats_update_path) do %>
+	<table>
+		<tr class="header">
+			<th>Nom</th>
+			<th>Prénom</th>
+			<th>Note</th>
+		</tr>
+		<% @resultats.each do |res| %>
+			<tr>
+				<td><%= res.etudiant.nom %></td>
+				<td><%= res.etudiant.prenom %></td>
+				<% if res.valeur == nil %>
+					<% if current_user.type == 'Etudiant' %>
+						<td>Non publiée</td>
+					<% else %>
+						<td class="note"><%= number_field_tag "resultats[#{res.id}]", min: 0, max: 20 %></td>
+					<% end %>
+				<% else %>
+					<% if current_user.type == 'Etudiant' %>
+						<td class="note"><%= number_field_tag "resultats[#{res.id}]", "#{res.valeur}", disabled: true %></td>
+					<% else %>
+						<td class="note"><%= number_field_tag "resultats[#{res.id}]", "#{res.valeur}", min: 0, max: 20 %></td>
+					<% end %>				
+				<% end %>
+			</tr>
+		<% end %>
+	</table>
+	<% if current_user.type != 'Etudiant' %>
+		<%= submit_tag 'Enregistrer' %>
+	<% end %>
+<% end %>
+
+

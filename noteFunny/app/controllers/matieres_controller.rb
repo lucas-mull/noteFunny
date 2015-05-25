@@ -11,7 +11,7 @@ class MatieresController < ApplicationController
       elsif @user.type == 'Enseignant'
         @matieres = @user.matieres
       else
-        @matieres = Appartenance.getMatieresFromEtu(@user.id)
+        redirect_to root_path
       end
     else
       redirect_to root_path
@@ -74,6 +74,9 @@ class MatieresController < ApplicationController
     @matiere.appartenances.each do |a|
       a.destroy
     end
+    @matiere.epreuves.each do |e|
+      e.destroy
+    end
     @matiere.destroy
     respond_to do |format|
       format.html { redirect_to matieres_url, notice: 'Matiere was successfully destroyed.' }
@@ -82,11 +85,12 @@ class MatieresController < ApplicationController
   end
 
   def add_student
-    @etudiants = Etudiant.all
-  end
-
-  def submit_student
-    redirect_to appartenances_create_path(:matieres_id => current_matiere.id, :etudiants_id => params[:etudiants_id])
+    already_in = Appartenance.getIdsInMatiere(current_matiere.id)
+    if already_in.count != 0
+      @etudiants = Etudiant.where("id NOT IN (?)", already_in)
+    else
+      @etudiants = Etudiant.all
+    end
   end
 
   private

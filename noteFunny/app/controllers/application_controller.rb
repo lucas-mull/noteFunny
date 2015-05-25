@@ -12,6 +12,10 @@ class ApplicationController < ActionController::Base
   	@_current_matiere ||= session[:current_matiere_id] && Matiere.find(session[:current_matiere_id])
   end
 
+  def current_epreuve
+    @_current_epreuve ||= session[:current_epreuve_id] && Epreuve.find(session[:current_epreuve_id])
+  end
+
   def isConnected?
   	session[:current_user_id].present?
   end
