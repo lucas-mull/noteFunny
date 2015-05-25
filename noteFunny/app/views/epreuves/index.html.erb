@@ -27,7 +27,9 @@
             <td></td>
             <th><a href=<%= resultats_show_path(epreuve.id) %>><%= epreuve.titre %></a></th>
             <td><%= epreuve.date.strftime("%d-%m-%Y") %></td>
+            <% if current_user.type != 'Etudiant' %>
             <td><%= link_to 'Modifier', edit_epreuve_path(epreuve) %> | <%= link_to 'Supprimer', epreuve, method: :delete, data: { confirm: 'Etes vous sûr ?' } %></td>
+            <% end %>
           </tr>
         <% end %>
         <tr class="header">

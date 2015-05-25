@@ -92,9 +92,10 @@ class UtilisateursController < ApplicationController
           flash[:alert] = 'Votre compte n\'a pas encore été activé'
           redirect_to root_path
         end
+      else
+        flash[:alert] = 'Mauvais identifiant ou mot de passe'
+        redirect_to root_path
       end
-      flash[:alert] = 'Mauvais identifiant ou mot de passe'
-      redirect_to root_path
     else
       flash[:alert] = 'Mauvais identifiant ou mot de passe'
       redirect_to root_path
