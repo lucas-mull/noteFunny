@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   get 'changePassword' => 'utilisateurs#change_password'
   post 'submitNewPassword' => 'utilisateurs#submit_password_change'
   get '/list' => 'utilisateurs#list', :as => 'utilisateurs_list'
-  get 'confirm/:id' => 'utilisateurs#confirm'
+  get 'confirm/:id' => 'utilisateurs#confirm', :as => 'utilisateurs_confirm'
   get 'confirm_admin/:id' => 'utilisateurs#confirm_admin'
   get 'enseignants' => 'utilisateur#index'
   get 'etudiants' => 'utilisateurs#index'
