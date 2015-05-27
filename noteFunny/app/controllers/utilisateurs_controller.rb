@@ -34,7 +34,7 @@ class UtilisateursController < ApplicationController
 
   def list
     if isConnected? && current_user.type == 'Admin'
-      @utilisateurs = Utilisateur.all.sort_by{|user| user.nom}
+      @utilisateurs = Utilisateur.all.sort_by{|user| [user.type, user.nom]}
       @utilisateur = current_user
     else
       redirect_to root_path

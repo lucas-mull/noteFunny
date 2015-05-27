@@ -427,7 +427,7 @@ p {
 }
 p#alert,
 p#notice{
-  color: yellow;
+  color: green;
 }
 
 p.hideToi {
